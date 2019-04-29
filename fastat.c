@@ -104,17 +104,17 @@ int main(int argc, char *argv[]) {
 
   int i; // a reusable counter
 
+  if(optind >= argc) { // no positional arguments (FASTAs)
+    fprintf(stderr, "FASTA/Q[.gz] is required\n");
+    usage();
+    return 1;
+  }
+
   if(compact)
     fprintf(stdout, "file\tn_seqs\ttotal_size\tavg_size\tmedian\tmaximum\tN50\n");
 
   for (index = optind; index < argc; index++) {
     fasta = argv[index];
-
-    if(fasta == NULL) {
-      fprintf(stderr, "FASTA/Q[.gz] is required\n");
-      usage();
-      return 1;
-    }
 
     f = gzopen(fasta, "r");
     if(!f) {
